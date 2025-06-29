@@ -1,4 +1,3 @@
-// Jenkinsfile
 pipeline {
     agent any
     stages {
@@ -9,13 +8,13 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-web-cicd .'
+                bat 'docker build -t my-web-cicd .'
             }
         }
         stage('Run Container') {
             steps {
-                sh 'docker rm -f my-web || true'
-                sh 'docker run -d --name my-web -p 5000:5000 my-web-cicd'
+                bat 'docker rm -f my-web || exit 0'
+                bat 'docker run -d --name my-web -p 5000:80 my-web-cicd'
             }
         }
     }
